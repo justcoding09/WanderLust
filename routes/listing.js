@@ -5,6 +5,7 @@ const ExpressError=require('../utils/ExpressError');
 const {listingSchema,reviewSchema}=require('../schema');
 const Listing=require('../models/listing');
 
+
 //VALIDATE FUNCTION
 const validateListing=(req,res,next)=>{
     let {error}=listingSchema.validate(req.body);
@@ -24,8 +25,12 @@ router.get("/",async (req,res)=>{
 
 //CREATE
 router.get("/new",(req,res)=>{
+    if(!req.isAuthenticated()){
+        req.flash("error","You must be logged in!");
+        return res.redirect("/login");
+    }
     res.render("listings/new");
-})
+});
 
 router.post("/",validateListing,wrapAsync(async (req,res,next)=>{
         const list=new Listing(req.body.listing);
@@ -56,6 +61,7 @@ router.get("/:id/edit",wrapAsync(async (req,res)=>{
 router.patch("/:id",validateListing,wrapAsync(async (req,res)=>{
     let {id}=req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing});
+    req.flash("success","Listing Updated!!!");
     res.redirect(`/listings/${id}`);
 }));
 
