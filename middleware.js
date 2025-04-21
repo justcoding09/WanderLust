@@ -42,9 +42,10 @@ module.exports.validateListing=(req,res,next)=>{
 //REVIEW SECTION
 module.exports.validateReview=(req,res,next)=>{
     let {error}=reviewSchema.validate(req.body);
-        if(error){
-            let errmsg=error.map((err)=>err.message).join(',');
-            throw new ExpressError(400,errmsg);}
+    if(error){
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new ExpressError(400,errMsg)
+    }
         else
         next(error);
 };

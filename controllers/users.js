@@ -1,3 +1,5 @@
+const User = require("../models/user")
+
 module.exports.renderSignUp=(req,res)=>{
     res.render("users/signup");
 };
@@ -28,7 +30,7 @@ module.exports.loginForm=(req,res)=>{
 
 module.exports.login=(req,res)=>{
     req.flash("success","Welcome Back to WanderLust!!!You are logged in.");
-    let redirect=res.locals.redirecturl || '/listings';
+    let redirect=res.locals.redirectUrl || '/listings';
     res.redirect(redirect);
 };
 

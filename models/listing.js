@@ -7,10 +7,12 @@ const listingSchema=new mongoose.Schema({
     },
     description:String,
     image:{
-        required:false,
-        type:String,
-        default:"https://unsplash.com/photos/landscape-photography-of-brown-mountains-and-river-uXTozY3CcQg",
-        set:(v)=>(v===" " || v==null )?"https://unsplash.com/photos/landscape-photography-of-brown-mountains-and-river-uXTozY3CcQg":v,
+        url:String,
+        filename:String
+        // required:false,
+        // type:String,
+        // default:"https://unsplash.com/photos/landscape-photography-of-brown-mountains-and-river-uXTozY3CcQg",
+        // set:(v)=>(v===" " || v==null )?"https://unsplash.com/photos/landscape-photography-of-brown-mountains-and-river-uXTozY3CcQg":v,
     },
     price:Number,
     location:String,
