@@ -15,7 +15,7 @@ module.exports.show=async (req,res,next)=>{
     console.log(listing.owner.username);
     if(!listing)
         next(new ExpressError(403,"Id not found"));
-    res.render("listings/show",{listing});
+    res.render("listings/show",{listing, mapToken: process.env.MAP_TOKEN});
 };
 
 module.exports.create=async (req,res,next)=>{
