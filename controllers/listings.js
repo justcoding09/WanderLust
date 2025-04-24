@@ -1,7 +1,19 @@
 const Listing=require('../models/listing');
 
 module.exports.index=async (req,res)=>{
-    let listing=await Listing.find({});
+    let listing;
+    const search=req.query.q;
+    if(search){
+        listing=await Listing.find({
+            $or:[
+                {title:{$regex:search,$options:"i"}},
+                {category:{$regex:search,$options:"i"}},
+                {location:{$regex:search,$options:"i"}},
+                {country:{$regex:search,$options:"i"}},
+            ]});
+    }else{
+        listing=await Listing.find({});
+    }
     res.render("listings/index",{listing})
 };
 

@@ -1,26 +1,34 @@
 <% layout("/layouts/boilerplate") %>
     <style>
-        #filters{
+        #filters,.icons {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
         }
-        .filter{
+        .icons a{
+            text-decoration: none;
             text-align: center;
-            margin-top:2rem;
+            margin-top: 2rem;
             margin-right: 2rem;
             opacity: 0.7;
+            border-bottom: 2px solid transparent;
+            color: #2d2b2c;
         }
-        .filter:hover{
+
+        .icons a:hover,.active-filter {
             opacity: 1;
             cursor: pointer;
             border-bottom: 2px solid #fe424d;
             color: #fe424d;
+            transition: all 0.3s ease;
         }
-        .tax-info{
+
+        .tax-info {
             display: none;
         }
-        .tax-toggle,.filter-toggle{
+
+        .tax-toggle,
+        .filter-toggle {
             border: 1px solid black;
             border-radius: 1rem;
             height: 3.5rem;
@@ -29,62 +37,61 @@
         }
     </style>
     <div id="filters" class="mb-2">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
+        <div class="icons">
+            <a href="/listings?q=" class="filter" data-filter="Trending">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </a>
+            <a href="/listings?q=Rooms" class="filter" data-filter="Rooms">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </a>
+            <a href="/listings?q=Iconic Cities" class="filter" data-filter="Iconic Cities">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </a>
+            <a href="/listings?q=Castles" class="filter" data-filter="Castles">
+                <div><i class="fa-brands fa-fort-awesome"></i></div>
+                <p>Castles</p>
+            </a>
+            <a href="/listings?q=Amazing Pools" class="filter" data-filter="Amazing Pools">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Amazing Pools</p>
+            </a>
+            <a href="/listings?q=Camping" class="filter" data-filter="Camping">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </a>
+            <a href="/listings?q=Mountain" class="filter" data-filter="Mountain">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountain</p>
+            </a>
+            <a href="/listings?q=Arctic" class="filter" data-filter="Arctic">
+                <div><i class="fa-solid fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </a>
+            <a href="/listings?q=Farms" class="filter" data-filter="Farms">
+                <div><i class="fa-solid fa-cow"></i></div>
+                <p>Farms</p>
+            </a>
+            <a href="/listings?q=Beaches" class="filter" data-filter="Beaches">
+                <div><i class="fa-solid fa-umbrella-beach"></i></div>
+                <p>Beaches</p>
+            </a>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Castles</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Amazing Pools</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-campground"></i></div>
-            <p>Camping</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountain</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-snowflake"></i></div>
-            <p>Arctic</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-cow"></i></div>
-            <p>Farms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-umbrella-beach"></i></div>
-            <p>Beaches</p>
-        </div>
-        <div>
-            <button class="btn dropdown-toggle filter-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-filter"></i> Filters
+            <button class="btn dropdown-toggle filter-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-filter"></i> Filters
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Beaches</a></li>
-              <li><a class="dropdown-item" href="#">Mountains</a></li>
-              <li><a class="dropdown-item" href="#">Forests</a></li>
-              <li><a class="dropdown-item" href="#">Deserts</a></li>
+                <li>Rating</li>
+                <li>Price</li>
             </ul>
-          </div>          
         <div class="tax-toggle">
             <div class="form-check-reverse form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
                 <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-              </div>
+            </div>
         </div>
     </div>
     <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-3">
@@ -98,7 +105,7 @@
                             <%= item.title %>
                         </h5>
                         <p class="card-text">
-                                <%= item.price.toLocaleString("en-IN") %>/night
+                            <%= item.price.toLocaleString("en-IN") %>/night
                                 <i class="tax-info">+18% GST</i>
                         </p>
                         <button href="/listings/:id" class="btn btn-primary">CheckOut</button>
@@ -108,14 +115,36 @@
             <% } %>
     </div>
     <script>
-        let taxSwitch=document.getElementById('switchCheckDefault');
-        taxSwitch.addEventListener("click",()=>{
-            let taxInfo=document.getElementsByClassName('tax-info');
-            for(info of taxInfo){
-                if(info.style.display!="inline")
-                info.style.display="inline";
+        let taxSwitch = document.getElementById('switchCheckDefault');
+        taxSwitch.addEventListener("click", () => {
+            let taxInfo = document.getElementsByClassName('tax-info');
+            for (info of taxInfo) {
+                if (info.style.display != "inline")
+                    info.style.display = "inline";
                 else
-                info.style.display="none";
+                    info.style.display = "none";
             }
-        })
+        });
+        window.addEventListener('DOMContentLoaded', () => {
+            const searchParams = new URLSearchParams(window.location.search);
+            const currentFilter = searchParams.get('q');
+
+            if (currentFilter) {
+                // Set the corresponding filter as active based on the query string
+                const activeFilter = document.querySelector(`[data-filter="${currentFilter}"]`);
+                if (activeFilter) {
+                    activeFilter.classList.add('active-filter');
+                }
+            }
+        });
+
+        document.querySelectorAll('.icons').forEach(filter => {
+            filter.addEventListener('click', (e) => {
+                // Remove 'active-filter' class from all filters
+                document.querySelectorAll('.icons').forEach(f => f.classList.remove('active-filter'));
+
+                // Add 'active-filter' to the clicked filter
+                filter.classList.add('active-filter');
+            });
+        });
     </script>
