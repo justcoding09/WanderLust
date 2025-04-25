@@ -18,12 +18,29 @@
                             <div class="valid-feedback">Description looks good!</div>
                             <div class="invalid-feedback">Please enter a valid input.</div>
                     </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Upload Image:</label>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <label for="image" class="form-label">Upload Image:</label>
                         <input type="file" name="listing[image]" id="" class="form-control"
                             placeholder="enter url/image" required>
                             <div class="valid-feedback">Image looks good!</div>
                             <div class="invalid-feedback">Please enter a valid input.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="category" class="form-label">Category:</label>
+                        <select name="listing[category]" id="category" class="form-select">
+                            <option value="" selected>--Please select--</option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Cities">Cities</option>
+                            <option value="Castles">Castles</option>
+                            <option value="Pools">Pools</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Mountain">Mountain</option>
+                            <option value="Arctic">Arctic</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Beaches">Beaches</option>
+                        </select>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location:</label>

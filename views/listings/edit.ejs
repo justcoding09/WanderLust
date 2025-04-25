@@ -16,9 +16,27 @@
                 <div class="mb-3">
                     <img src="<%= orgImage %>" alt="" style="height: 200px; width: 300px;">
                 </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload New Image:</label>
-                    <input type="file" name="listing[image]" class="form-control" >
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <label for="image" class="form-label">Upload New Image:</label>
+                        <input type="file" name="listing[image]" class="form-control" >
+                    </div>
+                    <div class="col-md-4">
+                        <label for="category" class="form-label">Category:</label>
+                        <select name="listing[category]" id="category" class="form-select">
+                            Category:
+                            <option value="" selected><%= listing.category %></option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Cities">Cities</option>
+                            <option value="Castles">Castles</option>
+                            <option value="Pools">Pools</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Mountain">Mountain</option>
+                            <option value="Arctic">Arctic</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Beaches">Beaches</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="location" class="form-label">Location:</label>

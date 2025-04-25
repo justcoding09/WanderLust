@@ -4,7 +4,6 @@ const ExpressError=require('./utils/ExpressError');
 const {listingSchema,reviewSchema}=require('./schema');
 
 module.exports.isLoggedIn=(req,res,next)=>{
-    console.log(req.path,"..",req.originalUrl);
     if(!req.isAuthenticated()){
         req.session.redirecturl=req.originalUrl;
         req.flash("error","You must be logged in!");
@@ -37,7 +36,7 @@ module.exports.validateListing=(req,res,next)=>{
             throw new ExpressError(400,errmsg);
         }
         else
-        next(error);
+        next();
 };
 //REVIEW SECTION
 module.exports.validateReview=(req,res,next)=>{
@@ -47,7 +46,7 @@ module.exports.validateReview=(req,res,next)=>{
         throw new ExpressError(400,errMsg)
     }
         else
-        next(error);
+        next();
 };
 
 module.exports.isAuthor=async(req,res,next)=>{

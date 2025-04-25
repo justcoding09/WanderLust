@@ -27,7 +27,12 @@ const listingSchema=new mongoose.Schema({
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"User"
-        }
+        },
+    category:{
+        type:String,
+        default:"Rooms",
+        enum:["Rooms","Cities","Castles","Pools","Camping","Mountain","Arctic","Farms","Beaches"]
+    }
 });
 
 listingSchema.post("findOneAndDelete",async (listing)=>{

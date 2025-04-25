@@ -46,7 +46,7 @@
                 <div><i class="fa-solid fa-bed"></i></div>
                 <p>Rooms</p>
             </a>
-            <a href="/listings?q=Iconic Cities" class="filter" data-filter="Iconic Cities">
+            <a href="/listings?q=Cities" class="filter" data-filter="Iconic Cities">
                 <div><i class="fa-solid fa-mountain-city"></i></div>
                 <p>Iconic Cities</p>
             </a>
@@ -54,7 +54,7 @@
                 <div><i class="fa-brands fa-fort-awesome"></i></div>
                 <p>Castles</p>
             </a>
-            <a href="/listings?q=Amazing Pools" class="filter" data-filter="Amazing Pools">
+            <a href="/listings?q=Pools" class="filter" data-filter="Amazing Pools">
                 <div><i class="fa-solid fa-person-swimming"></i></div>
                 <p>Amazing Pools</p>
             </a>
@@ -68,7 +68,7 @@
             </a>
             <a href="/listings?q=Arctic" class="filter" data-filter="Arctic">
                 <div><i class="fa-solid fa-snowflake"></i></div>
-                <p>Arctic</p>
+                <p>Arctic</p>    
             </a>
             <a href="/listings?q=Farms" class="filter" data-filter="Farms">
                 <div><i class="fa-solid fa-cow"></i></div>
@@ -83,9 +83,11 @@
                 aria-expanded="false">
                 <i class="fa-solid fa-filter"></i> Filters
             </button>
-            <ul class="dropdown-menu">
-                <li>Rating</li>
-                <li>Price</li>
+            <ul class="dropdown-menu gap-2 lh-lg">
+                <li>&nbsp;&nbsp;Rating:High to Low</li>
+                <li>&nbsp;&nbsp;Price:High to Low</li>
+                <li>&nbsp;&nbsp;Rating:Low to High</li>
+                <li>&nbsp;&nbsp;Price:Low to High</li>
             </ul>
         <div class="tax-toggle">
             <div class="form-check-reverse form-switch">
@@ -138,10 +140,10 @@
             }
         });
 
-        document.querySelectorAll('.icons').forEach(filter => {
-            filter.addEventListener('click', (e) => {
+        document.querySelectorAll('.icons').forEach(icon => {
+            icon.addEventListener('click', (e) => {
                 // Remove 'active-filter' class from all filters
-                document.querySelectorAll('.icons').forEach(f => f.classList.remove('active-filter'));
+                document.querySelectorAll('.icons').forEach(i => i.classList.remove('active-filter'));
 
                 // Add 'active-filter' to the clicked filter
                 filter.classList.add('active-filter');

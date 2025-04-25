@@ -33,6 +33,7 @@ module.exports.show=async (req,res,next)=>{
 module.exports.create=async (req,res,next)=>{
         let url=req.file.path;
         let filename=req.file.filename;
+        console.log(req.body.listing);
         const list=new Listing(req.body.listing);
         // if(!req.body.listing)
         //     throw new ExpressError("Send valid data for Listing.");

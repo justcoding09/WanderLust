@@ -14,7 +14,7 @@
                 <button class="btn search-icon" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <div class="navbar-nav ms-auto gap-2">
-                <a class="nav-link" href="/listings/new">Airbnb your home</a>
+                <a class="nav-link <%= currUser?"signup":"" %>" href="/listings/new">Airbnb your home</a>
                 <% if(!currUser){ %> 
                     <a class="nav-link signup" href="/signup">SignUp</a>
                     <a class="nav-link" href="/login">Login</a>
