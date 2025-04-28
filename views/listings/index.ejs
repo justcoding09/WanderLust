@@ -1,11 +1,13 @@
 <% layout("/layouts/boilerplate") %>
     <style>
-        #filters,.icons {
+        #filters,
+        .icons {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
         }
-        .icons a{
+
+        .icons a {
             text-decoration: none;
             text-align: center;
             margin-top: 2rem;
@@ -15,12 +17,13 @@
             color: #2d2b2c;
         }
 
-        .icons a:hover,.active-filter {
+        .icons a:hover,
+        .active-filter {
             opacity: 1;
             cursor: pointer;
             border-bottom: 2px solid #fe424d;
             color: #fe424d;
-            transition: all 0.3s ease;
+            transition: all 0.15s ease;
         }
 
         .tax-info {
@@ -68,7 +71,7 @@
             </a>
             <a href="/listings?q=Arctic" class="filter" data-filter="Arctic">
                 <div><i class="fa-solid fa-snowflake"></i></div>
-                <p>Arctic</p>    
+                <p>Arctic</p>
             </a>
             <a href="/listings?q=Farms" class="filter" data-filter="Farms">
                 <div><i class="fa-solid fa-cow"></i></div>
@@ -79,16 +82,16 @@
                 <p>Beaches</p>
             </a>
         </div>
+        <div class="dropdown">
             <button class="btn dropdown-toggle filter-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <i class="fa-solid fa-filter"></i> Filters
             </button>
-            <ul class="dropdown-menu gap-2 lh-lg">
-                <li>&nbsp;&nbsp;Rating:High to Low</li>
-                <li>&nbsp;&nbsp;Price:High to Low</li>
-                <li>&nbsp;&nbsp;Rating:Low to High</li>
-                <li>&nbsp;&nbsp;Price:Low to High</li>
+            <ul class="dropdown-menu p-2">
+                <li><a class="dropdown-item" href="#" onclick="applySort('desc')">Price: High to Low</a></li>
+                <li><a class="dropdown-item" href="#" onclick="applySort('asc')">Price: Low to High</a></li>
             </ul>
+        </div>
         <div class="tax-toggle">
             <div class="form-check-reverse form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
@@ -149,4 +152,10 @@
                 filter.classList.add('active-filter');
             });
         });
+        function applySort(order) {
+            const url = new URL(window.location.href);
+            console.log(window.location);
+            url.searchParams.set('filter', order);
+            window.location.href = url.toString(); // Redirect with both q and filter in URL
+        }
     </script>

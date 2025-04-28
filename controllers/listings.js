@@ -1,21 +1,38 @@
 const Listing=require('../models/listing');
 
-module.exports.index=async (req,res)=>{
+module.exports.index = async (req, res) => {
     let listing;
-    const search=req.query.q;
-    if(search){
-        listing=await Listing.find({
-            $or:[
-                {title:{$regex:search,$options:"i"}},
-                {category:{$regex:search,$options:"i"}},
-                {location:{$regex:search,$options:"i"}},
-                {country:{$regex:search,$options:"i"}},
-            ]});
-    }else{
-        listing=await Listing.find({});
+    const search = req.query.q;
+    let filter = req.query.filter;
+    filter = (filter === "asc") ? 1 : (filter === "desc" ? -1 : null);
+
+    if (search) {
+        if (filter !== null) {
+            listing = await Listing.find({
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { category: { $regex: search, $options: "i" } },
+                    { location: { $regex: search, $options: "i" } },
+                    { country: { $regex: search, $options: "i" } },
+                ]
+            }).sort({ price: filter });
+        } else {
+            listing = await Listing.find({
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { category: { $regex: search, $options: "i" } },
+                    { location: { $regex: search, $options: "i" } },
+                    { country: { $regex: search, $options: "i" } },
+                ]
+            });
+        }
+    } else {
+        if (filter !== null) listing = await Listing.find({}).sort({ price: filter });
+        else  listing = await Listing.find({}); // No sorting if filter is null
     }
-    res.render("listings/index",{listing})
+    res.render("listings/index", { listing });
 };
+
 
 module.exports.renderNew=(req,res)=>{
     res.render("listings/new");
