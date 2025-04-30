@@ -25,7 +25,7 @@ const db_url=process.env.ATLAS_URL;
 const store=MongoStore.create({
     mongoUrl:db_url,
     crypto:{
-        secret:"grace",
+        secret:process.env.SECRET,
     },
     touchAfter:24*3600,
 });
@@ -36,7 +36,7 @@ store.on("error",()=>{
 
 const sessionOptions={
     store:store,
-    secret:"grace",
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -81,23 +81,10 @@ app.use((req,res,next)=>{
     next();
 });
 
-// app.get("/demo",async (req,res)=>{
-//     let fakeUser=new User({
-//         email:"ahmed@",
-//         username:"Rafia",
-//     });
-//     let registerdUser=await User.register(fakeUser,"ahmedlove");
-//     res.send(registerdUser);
-// });
-
 app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
 
-//ERROR HANDLERS
-// app.all("*",(req,res,next)=>{
-//     next(new ExpressError(404,"Page not found !!!"));
-// });
 app.use((err,req,res,next)=>{
     let { statusCode = 500, message = "Something went wrong!" } = err;
     res.render("error.ejs",{message});
