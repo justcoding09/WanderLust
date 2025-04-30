@@ -13,12 +13,29 @@ const reviewsRouter=require('./routes/review');
 const listingsRouter=require('./routes/listing');
 const userRouter=require('./routes/user');
 const session=require('express-session');
+const MongoStore = require('connect-mongo');
 const flash=require('connect-flash');
 const passport=require('passport');
 const LocalStrategy=require('passport-local');
 const User=require('./models/user');
+const { error } = require('console');
+
+const db_url=process.env.ATLAS_URL;
+
+const store=MongoStore.create({
+    mongoUrl:db_url,
+    crypto:{
+        secret:"grace",
+    },
+    touchAfter:24*3600,
+});
+
+store.on("error",()=>{
+    console.log("Error in mongo session store",error);
+});
 
 const sessionOptions={
+    store:store,
     secret:"grace",
     resave:false,
     saveUninitialized:true,
@@ -51,7 +68,7 @@ app.engine("ejs",ejsMate);
 main().then(()=>console.log(`WANDERLUST`)).catch((err)=>console.log(err));
 
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect(db_url);
 }
 app.listen(8085,(req,res)=>{
     console.log(`Server started at 8085`);
