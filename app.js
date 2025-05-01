@@ -85,6 +85,10 @@ app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
 
+app.use("/",(req,res)=>{
+    res.redirect("/listings");
+});
+
 app.use((err,req,res,next)=>{
     let { statusCode = 500, message = "Something went wrong!" } = err;
     res.render("error.ejs",{message});
